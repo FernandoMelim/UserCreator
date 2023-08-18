@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UserCreator.Domain\UserCreator.Domain.csproj" />
+    <ProjectReference Include="..\UserCreator.Infrastructure\UserCreator.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Helpers\" />
+    <Folder Include="ServicesInterfaces\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
+</Project>
