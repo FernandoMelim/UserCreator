@@ -13,8 +13,6 @@
 
   <ItemGroup>
     <Folder Include="Helpers\" />
-    <Folder Include="ServicesInterfaces\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

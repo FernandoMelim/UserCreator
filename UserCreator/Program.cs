@@ -1,6 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
+using UserCreator.Application.Services;
+using UserCreator.Application.ServicesInterfaces;
 using UserCreator.Domain.DTOs;
+using UserCreator.Domain.RepositoriesInterfaces;
+using UserCreator.Infrastructure.AppContext;
+using UserCreator.Infrastructure.Repositories;
 using UserCreator.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,10 +41,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//builder.Services.AddTransient<IUserService, UserService>();
-//builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddSingleton<IUserService, UserService>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
 
-//builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
