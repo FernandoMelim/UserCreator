@@ -24,8 +24,8 @@ public class ApplicationContext : DbContext
 
     private void MapEntities(ModelBuilder modelBuilder)
     {
-        AddressEntityMapper.ConfigureAddressEntity(modelBuilder);
         UserEntityMapper.ConfigureUserEntity(modelBuilder);
+        AddressEntityMapper.ConfigureAddressEntity(modelBuilder);
     }
 
 
