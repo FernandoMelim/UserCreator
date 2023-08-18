@@ -4,6 +4,7 @@ using System.Net;
 using UserCreator.Application.Services;
 using UserCreator.Application.ServicesInterfaces;
 using UserCreator.Domain.DTOs;
+using UserCreator.Domain.DTOs.Responses;
 using UserCreator.Domain.RepositoriesInterfaces;
 using UserCreator.Infrastructure.AppContext;
 using UserCreator.Infrastructure.Repositories;

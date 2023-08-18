@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Text.Json;
 using UserCreator.Domain.DTOs;
+using UserCreator.Domain.DTOs.Responses;
 using UserCreator.Infrastructure.Exceptions;
 
 namespace UserCreator.Middlewares;
@@ -39,8 +40,6 @@ public class ErrorHandlingMiddleware
                     result.Errors.Add("Ocorreu um erro no servidor");
                     break;
             }
-
-            //var result = JsonSerializer.Serialize(new { message = error?.Message });
 
             await response.WriteAsync(JsonSerializer.Serialize(result));
         }

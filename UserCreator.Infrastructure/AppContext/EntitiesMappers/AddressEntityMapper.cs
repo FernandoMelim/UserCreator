@@ -19,7 +19,7 @@ public static class AddressEntityMapper
             x.Property(a => a.Number).HasColumnName("Number");
             x.Property(a => a.City).HasColumnName("City").HasMaxLength(255);
             x.Property(a => a.State).HasColumnName("State").HasMaxLength(255);
-            x.Property(a => a.PostalCode).HasColumnName("PostalCode").HasMaxLength(20);
+            x.Property(a => a.PostalCode).HasColumnName("PostalCode").HasMaxLength(9);
 
             x.HasOne(a => a.User)
                 .WithMany(u => u.Adresses)

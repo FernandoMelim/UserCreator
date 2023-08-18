@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace UserCreator.Domain.DTOs
+namespace UserCreator.Domain.DTOs.Responses
 {
     public class ApiBaseResponse
     {
