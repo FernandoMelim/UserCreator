@@ -12,7 +12,7 @@ public static class UserEntityMapper
         modelBuilder.Entity<User>(x =>
         {
             x.ToTable("Users");
-            x.HasKey(c => c.Id).HasName("Id");
+            x.HasKey(c => c.Id).HasName("User_Id");
             x.Property(c => c.Id).HasColumnName("Id").ValueGeneratedOnAdd();
             x.Property(c => c.Name).HasColumnName("Name").HasMaxLength(255);
             x.Property(c => c.Email).HasColumnName("Email").HasMaxLength(255);
