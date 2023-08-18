@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Net;
 using UserCreator.Application.Services;
 using UserCreator.Application.ServicesInterfaces;
-using UserCreator.Domain.DTOs;
 using UserCreator.Domain.DTOs.Responses;
 using UserCreator.Domain.RepositoriesInterfaces;
 using UserCreator.Infrastructure.AppContext;
@@ -43,7 +42,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<IUserService, UserService>();
-builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddSingleton<IUserRepository, UserRepository>();
 
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
