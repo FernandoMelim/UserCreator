@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using System.Net;
 using UserCreator.Application.ServicesInterfaces;
 using UserCreator.Domain.DTOs.Requets.User;
 using UserCreator.Domain.DTOs.Responses.User;
+using UserCreator.Domain.Entities;
 using UserCreator.Domain.RepositoriesInterfaces;
 
 namespace UserCreator.Application.Services;
@@ -17,29 +19,62 @@ public class UserService : IUserService
         _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 
-    public Task<PostUserResponseDTO> CreateUser(PostUserRequestDTO postUserRequestDto)
+    public async Task<PostUserResponseDTO> CreateUser(PostUserRequestDTO postUserRequestDto)
     {
-        throw new NotImplementedException();
+        var user = _mapper.Map<User>(postUserRequestDto);
+        await _userRepository.CreateUser(user);
+
+        return new PostUserResponseDTO()
+        {
+            Errors = null,
+            StatusCode = HttpStatusCode.OK
+        };
     }
 
-    public Task<DeleteUserResponseDTO> DeleteUser(int id)
+    public async Task<DeleteUserResponseDTO> DeleteUser(int id)
     {
-        throw new NotImplementedException();
+        await _userRepository.DeleteUser(id);
+
+        return new DeleteUserResponseDTO()
+        {
+            Errors = null,
+            StatusCode = HttpStatusCode.OK
+        };
     }
 
-    public Task<PatchUserResponseDTO> EditUser(PatchUserRequestDTO patchUserRequestDto)
+    public async Task<PatchUserResponseDTO> EditUser(PatchUserRequestDTO patchUserRequestDto)
     {
-        throw new NotImplementedException();
+        var user = _mapper.Map<User>(patchUserRequestDto);
+        await _userRepository.EditUser(user);
+
+        return new PatchUserResponseDTO()
+        {
+            Errors = null,
+            StatusCode = HttpStatusCode.OK
+        };
     }
 
-    public Task<GetAllUsersResponseDTO> GetAllUsers()
+    public async Task<GetAllUsersResponseDTO> GetAllUsers()
     {
-        throw new NotImplementedException();
+        var allUsers = await _userRepository.GetAllUsers();
+
+        return new GetAllUsersResponseDTO() { 
+            Users = allUsers.ToList(),  
+            Errors = null,
+            StatusCode = HttpStatusCode.OK
+        };
     }
 
-    public Task<GetUserResponseDTO> GetUserById(int id)
+    public async Task<GetUserResponseDTO> GetUserById(int id)
     {
-        throw new NotImplementedException();
+        var user = await _userRepository.GetUser(id);
+
+        return new GetUserResponseDTO()
+        {
+            User = user,
+            Errors = null,
+            StatusCode = HttpStatusCode.OK
+        };
     }
 }
 

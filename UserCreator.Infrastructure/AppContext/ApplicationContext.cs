@@ -17,7 +17,7 @@ public class ApplicationContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.UseIdentityColumns();
-        modelBuilder.HasDefaultSchema("UserManager");
+        modelBuilder.HasDefaultSchema("UserCreator");
         
         MapEntities(modelBuilder);
     }

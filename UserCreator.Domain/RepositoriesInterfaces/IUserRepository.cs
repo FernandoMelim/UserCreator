@@ -4,14 +4,14 @@ namespace UserCreator.Domain.RepositoriesInterfaces;
 
 public interface IUserRepository
 {
-    User CreateUser(User user);
+    Task CreateUser(User user);
 
-    User EditUser(User user);
+    Task EditUser(User user);
 
-    void DeleteUser(int id);
+    Task DeleteUser(int id);
 
-    User GetUser(int id);
+    Task<User> GetUser(int id);
 
-    IEnumerable<User> GetAllUsers();
+    Task<IEnumerable<User>> GetAllUsers();
 }
 

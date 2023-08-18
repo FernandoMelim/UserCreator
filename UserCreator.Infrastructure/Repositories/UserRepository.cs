@@ -1,4 +1,5 @@
-﻿using UserCreator.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using UserCreator.Domain.Entities;
 using UserCreator.Domain.RepositoriesInterfaces;
 using UserCreator.Infrastructure.AppContext;
 using UserCreator.Infrastructure.Exceptions;
@@ -13,15 +14,13 @@ public class UserRepository : IUserRepository
         _db = db ?? throw new ArgumentNullException(nameof(db));
     }
 
-    public User CreateUser(User user)
+    public async Task CreateUser(User user)
     {
-        var a = _db.Users.Add(user);
+        _db.Users.Add(user);
         _db.SaveChanges();
-
-        return user;
     }
 
-    public User EditUser(User user)
+    public async Task EditUser(User user)
     {
         var dbUser = _db.Users.FirstOrDefault(x => x.Id == user.Id);
 
@@ -35,12 +34,10 @@ public class UserRepository : IUserRepository
         dbUser.Email = user.Email;
         dbUser.Adresses = user.Adresses;
 
-        _db.SaveChanges();
-
-        return dbUser;
+        await _db.SaveChangesAsync();
     }
 
-    public void DeleteUser(int id)
+    public async Task DeleteUser(int id)
     {
         var user = _db.Users.FirstOrDefault(x => x.Id == id);
 
@@ -49,12 +46,12 @@ public class UserRepository : IUserRepository
 
         _db.Users.Remove(user);
 
-        _db.SaveChanges();
+        await _db.SaveChangesAsync();
     }
 
-    public User GetUser(int id)
+    public async Task<User> GetUser(int id)
     {
-        var user = _db.Users.FirstOrDefault(x => x.Id == id);
+        var user = await _db.Users.FirstOrDefaultAsync(x => x.Id == id);
 
         if (user == null)
             throw new ObjectNotFoundException();
@@ -62,7 +59,7 @@ public class UserRepository : IUserRepository
         return user;
     }
 
-    public IEnumerable<User> GetAllUsers()
-        => _db.Users.ToList();
+    public async Task<IEnumerable<User>> GetAllUsers()
+        => await _db.Users.ToListAsync();
 }
 

@@ -2,6 +2,6 @@
 
 public class GetAllUsersResponseDTO : ApiBaseResponse
 {
-    public List<Entities.User> User { get; set; }
+    public List<Entities.User> Users { get; set; }
 }
 
