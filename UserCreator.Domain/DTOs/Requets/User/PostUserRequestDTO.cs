@@ -3,10 +3,10 @@ using UserCreator.Domain.Enums;
 
 namespace UserCreator.Domain.DTOs.Requets.User;
 
-public class PostUserRequestDTO
+public class PostUserRequestDTO : IValidatableObject
 {
     [Required(ErrorMessage = "O campo 'Nome' é obrigatório")]
-    [StringLength(255, MinimumLength = 3)]
+    [StringLength(255, MinimumLength = 3, ErrorMessage = "O nome deve ter no minimo 3 e no máximo 255 caracteres.")]
     [DataType(DataType.Text)]
     public string Name { get; set; }
 
