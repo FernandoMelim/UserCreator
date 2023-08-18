@@ -39,11 +39,12 @@ public class UserRepository : IUserRepository
 
     public async Task DeleteUser(int id)
     {
-        var user = _db.Users.FirstOrDefault(x => x.Id == id);
+        var user = _db.Users.Include(x => x.Adresses).FirstOrDefault(x => x.Id == id);
 
         if (user == null)
             throw new ObjectNotFoundException();
 
+        _db.Addresses.RemoveRange(user.Adresses);
         _db.Users.Remove(user);
 
         await _db.SaveChangesAsync();
@@ -51,7 +52,7 @@ public class UserRepository : IUserRepository
 
     public async Task<User> GetUser(int id)
     {
-        var user = await _db.Users.FirstOrDefaultAsync(x => x.Id == id);
+        var user = await _db.Users.Include(x => x.Adresses).FirstOrDefaultAsync(x => x.Id == id);
 
         if (user == null)
             throw new ObjectNotFoundException();
@@ -60,6 +61,6 @@ public class UserRepository : IUserRepository
     }
 
     public async Task<IEnumerable<User>> GetAllUsers()
-        => await _db.Users.ToListAsync();
+        => await _db.Users.Include(x => x.Adresses).ToListAsync();
 }
 

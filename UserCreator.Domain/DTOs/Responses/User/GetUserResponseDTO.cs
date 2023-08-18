@@ -2,6 +2,6 @@
 
 public class GetUserResponseDTO : ApiBaseResponse
 {
-    public Entities.User User { get; set; }
+    public UserResponseDTO User { get; set; }
 }
 

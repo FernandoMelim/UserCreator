@@ -1,21 +1,19 @@
-﻿namespace UserCreator.Domain.Entities;
+﻿namespace UserCreator.Domain.DTOs.Responses.User;
 
-public class Address
+public class AddressResponseDTO
 {
     public int Id { get; set; }
 
+    public int Number { get; set; }
     public int UserId { get; set; }
 
     public string Street { get; set; }
 
-    public int Number { get; set; }
 
     public string City { get; set; }
 
     public string State { get; set; }
 
     public string PostalCode { get; set; }
-
-    public User User { get; set; }
 }
 

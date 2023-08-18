@@ -59,7 +59,7 @@ public class UserService : IUserService
         var allUsers = await _userRepository.GetAllUsers();
 
         return new GetAllUsersResponseDTO() { 
-            Users = allUsers.ToList(),  
+            Users = _mapper.Map<List<UserResponseDTO>>(allUsers),  
             Errors = null,
             StatusCode = HttpStatusCode.OK
         };
@@ -71,7 +71,7 @@ public class UserService : IUserService
 
         return new GetUserResponseDTO()
         {
-            User = user,
+            User = _mapper.Map<UserResponseDTO>(user),
             Errors = null,
             StatusCode = HttpStatusCode.OK
         };

@@ -12,7 +12,7 @@ public static class AddressEntityMapper
         modelBuilder.Entity<Address>(x =>
         {
             x.ToTable("Addresses");
-            x.HasKey(a => a.Id);
+            x.HasKey(a => a.Id).HasName("Id");
             x.Property(a => a.Id).HasColumnName("Id").ValueGeneratedOnAdd();
             x.Property(a => a.UserId).HasColumnName("UserId");
             x.Property(a => a.Street).HasColumnName("Street").HasMaxLength(255);

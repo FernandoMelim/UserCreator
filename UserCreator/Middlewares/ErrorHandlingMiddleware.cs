@@ -32,7 +32,7 @@ public class ErrorHandlingMiddleware
                 case ObjectNotFoundException:
                     response.StatusCode = (int)HttpStatusCode.NotFound;
                     result.StatusCode = HttpStatusCode.NotFound;
-                    result.Errors.Add("Recurso não foi encontrado");
+                    result.Errors.Add("Item não foi encontrado no banco.");
                     break;
                 default:
                     response.StatusCode = (int)HttpStatusCode.InternalServerError;
