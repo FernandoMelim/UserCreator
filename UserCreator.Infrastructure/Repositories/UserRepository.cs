@@ -10,7 +10,7 @@ public class UserRepository : IUserRepository
     private readonly ApplicationContext _db;
     public UserRepository(ApplicationContext db)
     {
-        _db = _db ?? throw new ArgumentNullException(nameof(db));
+        _db = db ?? throw new ArgumentNullException(nameof(db));
     }
 
     public User CreateUser(User user)
