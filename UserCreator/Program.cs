@@ -11,6 +11,8 @@ using UserCreator.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 
@@ -49,6 +51,12 @@ builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServe
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
+    db.Database.Migrate();
+}
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
 
