@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33801.468
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserCreator", "UserCreator\UserCreator.csproj", "{765F7FD8-1AB2-4942-9783-53E18FDCF792}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserCreator", "UserCreator\UserCreator.csproj", "{765F7FD8-1AB2-4942-9783-53E18FDCF792}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserCreator.Domain", "UserCreator.Domain\UserCreator.Domain.csproj", "{A39C6508-BCB4-4D52-BFCD-2F3D7187582C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserCreator.Domain", "UserCreator.Domain\UserCreator.Domain.csproj", "{A39C6508-BCB4-4D52-BFCD-2F3D7187582C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserCreator.Infrastructure", "UserCreator.Infrastructure\UserCreator.Infrastructure.csproj", "{E2C46D77-4233-481E-A521-5B9143FE80C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserCreator.Infrastructure", "UserCreator.Infrastructure\UserCreator.Infrastructure.csproj", "{E2C46D77-4233-481E-A521-5B9143FE80C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserCreator.Application", "UserCreator.Application\UserCreator.Application.csproj", "{9C7B8605-1078-4E24-B0D9-5AE1A0F81739}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserCreator.Application", "UserCreator.Application\UserCreator.Application.csproj", "{9C7B8605-1078-4E24-B0D9-5AE1A0F81739}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserCreator.Tests", "UserCreator.Tests\UserCreator.Tests.csproj", "{C2BBD749-B43C-4692-842D-B70F4E7B8ECF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{9C7B8605-1078-4E24-B0D9-5AE1A0F81739}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C7B8605-1078-4E24-B0D9-5AE1A0F81739}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C7B8605-1078-4E24-B0D9-5AE1A0F81739}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2BBD749-B43C-4692-842D-B70F4E7B8ECF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2BBD749-B43C-4692-842D-B70F4E7B8ECF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2BBD749-B43C-4692-842D-B70F4E7B8ECF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2BBD749-B43C-4692-842D-B70F4E7B8ECF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

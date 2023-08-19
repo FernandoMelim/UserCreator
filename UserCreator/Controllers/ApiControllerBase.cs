@@ -14,7 +14,7 @@ public class ApiControllerBase : ControllerBase
         _validationNotifications = validationNotifications ?? throw new ArgumentNullException(nameof(validationNotifications));
     }
 
-    protected async Task<ActionResult> Return(ApiBaseResponse apiBaseResponse)
+    protected async virtual Task<ActionResult> Return(ApiBaseResponse apiBaseResponse)
     {
         if (!_validationNotifications.HasErrors())
         {

@@ -10,9 +10,9 @@ public class ApplicationContext : DbContext
      : base(options)
     { }
 
-    public DbSet<User> Users { get; set; }
+    public virtual DbSet<User> Users { get; set; }
 
-    public DbSet<Address> Addresses{ get; set; }
+    public virtual DbSet<Address> Addresses{ get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
