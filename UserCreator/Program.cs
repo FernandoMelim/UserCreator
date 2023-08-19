@@ -56,10 +56,13 @@ var app = builder.Build();
 
 app.MapHealthChecks("/healthz");
 
-using (var scope = app.Services.CreateScope())
+if (Boolean.Parse(builder.Configuration.GetSection("ExecuteMigrations").Value))
 {
-    var db = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
-    db.Database.Migrate();
+    using (var scope = app.Services.CreateScope())
+    {
+        var db = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
+        db.Database.Migrate();
+    }
 }
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
