@@ -32,12 +32,12 @@ public class ErrorHandlingMiddleware
                 case ObjectNotFoundException:
                     response.StatusCode = (int)HttpStatusCode.NotFound;
                     result.StatusCode = HttpStatusCode.NotFound;
-                    result.Errors.Add("Item não foi encontrado no banco.");
+                    result.Errors.Add(new KeyValuePair<string, List<string>>("ObjectNotFoundException", new List<string>() { "Item não foi encontrado no banco." }));
                     break;
                 default:
                     response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     result.StatusCode = HttpStatusCode.InternalServerError;
-                    result.Errors.Add("Ocorreu um erro no servidor");
+                    result.Errors.Add(new KeyValuePair<string, List<string>>("InternalServerError", new List<string>() { "Ocorreu um erro no servidor." }));
                     break;
             }
 

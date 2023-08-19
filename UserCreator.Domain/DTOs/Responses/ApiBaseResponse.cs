@@ -6,6 +6,6 @@ namespace UserCreator.Domain.DTOs.Responses
     {
         public HttpStatusCode StatusCode { get; set; }
 
-        public List<string>? Errors { get; set; } = new List<string>();
+        public List<KeyValuePair<string, List<string>>>? Errors { get; set; } = new List<KeyValuePair<string, List<string>>>();
     }
 }

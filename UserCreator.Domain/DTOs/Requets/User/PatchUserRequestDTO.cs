@@ -3,7 +3,7 @@ using UserCreator.Domain.Enums;
 
 namespace UserCreator.Domain.DTOs.Requets.User;
 
-public class PatchUserRequestDTO : IValidatableObject
+public class PatchUserRequestDTO : ApiBaseRequest
 {
     [Required]
     public int Id { get; set; }

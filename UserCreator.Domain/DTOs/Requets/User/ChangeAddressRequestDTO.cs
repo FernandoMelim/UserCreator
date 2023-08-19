@@ -2,7 +2,7 @@
 
 namespace UserCreator.Domain.DTOs.Requets.User;
 
-public class ChangeAddressRequestDTO
+public class ChangeAddressRequestDTO : ApiBaseRequest
 {
     [Required]
     public int Id { get; set; }
