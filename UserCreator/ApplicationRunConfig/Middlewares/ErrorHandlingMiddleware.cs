@@ -4,7 +4,7 @@ using UserCreator.Domain.DTOs;
 using UserCreator.Domain.DTOs.Responses;
 using UserCreator.Infrastructure.Exceptions;
 
-namespace UserCreator.Middlewares;
+namespace UserCreator.ApplicationRunConfig.Middlewares;
 
 public class ErrorHandlingMiddleware
 {
