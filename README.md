@@ -1,7 +1,6 @@
 # UserCreator - Guia de Utilização
 
-O UserCreator é um projeto destinado à criação e gerenciamento de usuários, oferecendo uma API robusta para essa finalidade. Este guia detalha as etapas para executar o projeto usando o Docker ou o Visual Studio, proporcionando uma experiência fluida desde o setup até o teste da API.
-
+O UserCreator é um projeto destinado à criação e gerenciamento de usuários, oferecendo uma API para essa finalidade. Este guia detalha as etapas para executar o projeto usando o Docker ou o Visual Studio, proporcionando uma experiência fluida desde o setup até o teste da API.
 
 ## Execução com Docker
 
