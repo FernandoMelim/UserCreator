@@ -19,7 +19,7 @@ services:
   user-creator-api:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./UserCreator/Dockerfile
     environment:
       - ConnectionStrings__DefaultConnection=Server=sql-server;Database=UserCreator;User=sa;Password=Fernando9+;MultipleActiveResultSets=true;TrustServerCertificate=true;
       - ExecuteMigrations=true
