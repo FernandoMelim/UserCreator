@@ -28,12 +28,14 @@ public class ErrorHandlingMiddleware
         {
             response.StatusCode = (int)HttpStatusCode.NotFound;
             result.StatusCode = HttpStatusCode.NotFound;
+            result.Errors = new List<KeyValuePair<string, List<string>>>();
             result.Errors.Add(new KeyValuePair<string, List<string>>("ObjectNotFoundException", new List<string>() { "Item não foi encontrado no banco." }));
         }
         catch (Exception)
         {
             response.StatusCode = (int)HttpStatusCode.InternalServerError;
             result.StatusCode = HttpStatusCode.InternalServerError;
+            result.Errors = new List<KeyValuePair<string, List<string>>>();
             result.Errors.Add(new KeyValuePair<string, List<string>>("InternalServerError", new List<string>() { "Ocorreu um erro no servidor." }));
 
             await response.WriteAsync(JsonSerializer.Serialize(result));
