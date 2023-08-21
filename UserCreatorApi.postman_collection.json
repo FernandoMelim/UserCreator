@@ -12,12 +12,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:80/api/User",
+					"raw": "http://localhost:8080/api/User",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "80",
+					"port": "8080",
 					"path": [
 						"api",
 						"User"
@@ -32,12 +32,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:80/api/User/1",
+					"raw": "http://localhost:8080/api/User/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "80",
+					"port": "8080",
 					"path": [
 						"api",
 						"User",
@@ -62,12 +62,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:80/api/User",
+					"raw": "http://localhost:8080/api/User",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "80",
+					"port": "8080",
 					"path": [
 						"api",
 						"User"
@@ -83,7 +83,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n            \"id\": 3,\r\n            \"name\": \"Fernando Hottum\",\r\n            \"email\": \"fernando.lief@hotmail.com\",\r\n            \"birthDate\": \"1996-12-26T00:00:00\",\r\n            \"schoolingLevel\": 3,\r\n            \"phone\": \"24992306220\",\r\n            \"adresses\": [\r\n                {\r\n                    \"id\": 3,\r\n                    \"number\": 12,\r\n                    \"userId\": 3,\r\n                    \"street\": \"Rua testeEEEEEEEEEEEEE\",\r\n                    \"city\": \"cidade teste\",\r\n                    \"state\": \"estado teste\",\r\n                    \"postalCode\": \"123456789\"\r\n                },\r\n                {\r\n                    \"id\": 4,\r\n                    \"number\": 12,\r\n                    \"userId\": 3,\r\n                    \"street\": \"Rua teste 2\",\r\n                    \"city\": \"cidade teste\",\r\n                    \"state\": \"estado teste\",\r\n                    \"postalCode\": \"123456789\"\r\n                },\r\n                {\r\n                    \"id\": 5,\r\n                    \"number\": 12,\r\n                    \"userId\": 3,\r\n                    \"street\": \"Rua teste 3\",\r\n                    \"city\": \"cidade teste\",\r\n                    \"state\": \"estado teste\",\r\n                    \"postalCode\": \"123456789\"\r\n                }\r\n            ]\r\n        }",
+					"raw": "{\r\n            \"id\": 3,\r\n            \"name\": \"Fernando Hottum\",\r\n            \"email\": \"fernando.lief@hotmail.com\",\r\n            \"birthDate\": \"1996-12-26T00:00:00\",\r\n            \"schoolingLevel\": 3,\r\n            \"phone\": \"24992306220\",\r\n            \"adresses\": [\r\n                {\r\n                    \"id\": 3,\r\n                    \"number\": 12,\r\n                    \"userId\": 3,\r\n                    \"street\": \"Rua testeEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE\",\r\n                    \"city\": \"cidade teste\",\r\n                    \"state\": \"estado teste\",\r\n                    \"postalCode\": \"123456789\"\r\n                },\r\n                {\r\n                    \"id\": 4,\r\n                    \"number\": 12,\r\n                    \"userId\": 3,\r\n                    \"street\": \"Rua teste 222222222222222222\",\r\n                    \"city\": \"cidade teste\",\r\n                    \"state\": \"estado teste\",\r\n                    \"postalCode\": \"123456789\"\r\n                },\r\n                {\r\n                    \"id\": 5,\r\n                    \"number\": 12,\r\n                    \"userId\": 3,\r\n                    \"street\": \"Rua teste 333333333333333333\",\r\n                    \"city\": \"cidade teste\",\r\n                    \"state\": \"estado teste\",\r\n                    \"postalCode\": \"123456789\"\r\n                }\r\n            ]\r\n        }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -91,12 +91,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:80/api/User",
+					"raw": "http://localhost:8080/api/User",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "80",
+					"port": "8080",
 					"path": [
 						"api",
 						"User"
@@ -111,12 +111,12 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:80/api/User/1",
+					"raw": "http://localhost:8080/api/User/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "80",
+					"port": "8080",
 					"path": [
 						"api",
 						"User",
