@@ -24,7 +24,7 @@ services:
       - ConnectionStrings__DefaultConnection=Server=sql-server;Database=UserCreator;User=sa;Password=Fernando9+;MultipleActiveResultSets=true;TrustServerCertificate=true;
       - ExecuteMigrations=true
     ports:
-      - "80:8080"
+      - "8080:80"
     container_name: api
     depends_on:
       - sql-server
