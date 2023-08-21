@@ -1,6 +1,5 @@
 ﻿using System.Net;
 using System.Text.Json;
-using UserCreator.Domain.DTOs;
 using UserCreator.Domain.DTOs.Responses;
 using UserCreator.Infrastructure.Exceptions;
 
@@ -17,29 +16,25 @@ public class ErrorHandlingMiddleware
 
     public async Task Invoke(HttpContext context)
     {
+        var response = context.Response;
+        response.ContentType = "application/json";
+        var result = new ApiBaseResponse();
+
         try
         {
             await _next(context);
         }
-        catch (Exception error)
+        catch (ObjectNotFoundException)
         {
-            var response = context.Response;
-            response.ContentType = "application/json";
-            var result = new ApiBaseResponse();
-
-            switch (error)
-            {
-                case ObjectNotFoundException:
-                    response.StatusCode = (int)HttpStatusCode.NotFound;
-                    result.StatusCode = HttpStatusCode.NotFound;
-                    result.Errors.Add(new KeyValuePair<string, List<string>>("ObjectNotFoundException", new List<string>() { "Item não foi encontrado no banco." }));
-                    break;
-                default:
-                    response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                    result.StatusCode = HttpStatusCode.InternalServerError;
-                    result.Errors.Add(new KeyValuePair<string, List<string>>("InternalServerError", new List<string>() { "Ocorreu um erro no servidor." }));
-                    break;
-            }
+            response.StatusCode = (int)HttpStatusCode.NotFound;
+            result.StatusCode = HttpStatusCode.NotFound;
+            result.Errors.Add(new KeyValuePair<string, List<string>>("ObjectNotFoundException", new List<string>() { "Item não foi encontrado no banco." }));
+        }
+        catch (Exception)
+        {
+            response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            result.StatusCode = HttpStatusCode.InternalServerError;
+            result.Errors.Add(new KeyValuePair<string, List<string>>("InternalServerError", new List<string>() { "Ocorreu um erro no servidor." }));
 
             await response.WriteAsync(JsonSerializer.Serialize(result));
         }
