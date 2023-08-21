@@ -1,0 +1,32 @@
+version: "3.9"
+
+networks:
+  create-user-api-network:
+    driver: bridge
+
+services:
+  sql-server:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      MSSQL_SA_PASSWORD: Fernando9+
+      ACCEPT_EULA: Y
+    container_name: sql-server
+    networks:
+      - create-user-api-network
+    ports: 
+      - 1433:1433
+
+  user-creator-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=sql-server;Database=UserCreator;User=sa;Password=Fernando9+;MultipleActiveResultSets=true;TrustServerCertificate=true;
+      - ExecuteMigrations=true
+    ports:
+      - "80:8080"
+    container_name: api
+    depends_on:
+      - sql-server
+    networks:
+      - create-user-api-network
