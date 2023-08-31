@@ -1,6 +1,6 @@
 ﻿using System.Net;
 using System.Text.Json;
-using UserCreator.Domain.DTOs.Responses;
+using UserCreator.Application.DTOs.Responses;
 using UserCreator.Infrastructure.Exceptions;
 
 namespace UserCreator.ApplicationRunConfig.Middlewares;

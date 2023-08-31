@@ -1,6 +1,5 @@
 ﻿using System.Text.RegularExpressions;
-using UserCreator.Domain.DTOs.Requets;
-using UserCreator.Domain.DTOs.Requets.User;
+using UserCreator.Domain.Entities;
 
 namespace UserCreator.Domain.Validations.Middlewares;
 
@@ -15,9 +14,9 @@ public class ValidateCreateUserDataMiddleware : IValidationMiddleware
         _validationNotifications = validationNotifications ?? throw new ArgumentNullException(nameof(validationNotifications));
     }
 
-    public void Validate(ApiBaseRequest apiBaseRequest)
+    public void Validate(BaseEntity user)
     {
-        var instance = apiBaseRequest as PostUserRequestDTO;
+        var instance = user as User;
 
         if (string.IsNullOrWhiteSpace(instance.Name))
             _validationNotifications.AddError("Name", "O nome deve estar preenchido.");
@@ -35,13 +34,13 @@ public class ValidateCreateUserDataMiddleware : IValidationMiddleware
         if (!instance.BirthDate.HasValue)
             _validationNotifications.AddError("BirthDate", "A data de nascimento deve estar preenchida.");
 
-        if (instance.BirthDate != null && instance.BirthDate.Value.Date > DateTime.Now.Date)
+        if (instance.BirthDate.HasValue && instance.BirthDate.Value.Date > DateTime.Now.Date)
             _validationNotifications.AddError("BirthDate", "Data de nascimento maior do que a data atual");
 
         if (!instance.SchoolingLevel.HasValue)
             _validationNotifications.AddError("SchoolingLevel", "A escolaridade deve estar preenchida.");
 
-        if (instance.SchoolingLevel != null && (instance.SchoolingLevel < 0 || (int)instance.SchoolingLevel > 3))
+        if (instance.SchoolingLevel.HasValue && (instance.SchoolingLevel < 0 || (int)instance.SchoolingLevel > 3))
             _validationNotifications.AddError("SchoolingLevel", "Adicione um nível de escolaridade correto");
 
 

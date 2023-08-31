@@ -1,11 +1,11 @@
-﻿using UserCreator.Domain.DTOs.Requets.User;
+﻿using UserCreator.Domain.Entities;
 
 namespace UserCreator.Domain.Validations;
 
 public interface IExecuteUserValidations
 {
-    void ExecuteUserSaveValidation(PostUserRequestDTO postUserRequestDto);
+    void ExecuteUserSaveValidation(User postUserRequestDto);
 
-    void ExecuteUserChangeValidation(PatchUserRequestDTO patchUserRequestDto);
+    void ExecuteUserChangeValidation(User patchUserRequestDto);
 }
 

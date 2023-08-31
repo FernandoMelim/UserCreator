@@ -1,10 +1,9 @@
-﻿using UserCreator.Domain.DTOs.Requets.User;
-using UserCreator.Domain.DTOs.Responses.User;
+﻿using UserCreator.Application.DTOs.Requets.User;
 using UserCreator.Domain.Entities;
 
-namespace UserCreator.Application.ServicesInterfaces;
+namespace UserCreator.Application.ApplicationServicesInterfaces;
 
-public interface IUserService
+public interface IApplicationServiceUser
 {
     Task CreateUser(PostUserRequestDTO postUserRequestDto);
     Task DeleteUser(int id);

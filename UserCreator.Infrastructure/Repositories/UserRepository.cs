@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using UserCreator.Domain.Entities;
-using UserCreator.Domain.RepositoriesInterfaces;
+using UserCreator.Domain.Interfaces.Repositories;
 using UserCreator.Infrastructure.AppContext;
 using UserCreator.Infrastructure.Exceptions;
 

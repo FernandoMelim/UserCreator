@@ -1,35 +1,26 @@
-﻿using AutoMapper;
-using UserCreator.Application.ServicesInterfaces;
-using UserCreator.Domain.DTOs.Requets.User;
-using UserCreator.Domain.Entities;
-using UserCreator.Domain.RepositoriesInterfaces;
+﻿using UserCreator.Domain.Entities;
+using UserCreator.Domain.Interfaces.Repositories;
+using UserCreator.Domain.Interfaces.Services;
 using UserCreator.Domain.Validations;
 
-namespace UserCreator.Application.Services;
+namespace UserCreator.Domain.Services;
 
 public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
-    private readonly IMapper _mapper;
     private readonly IExecuteUserValidations _executeUserValidations;
     private readonly IValidationNotifications _validationNotifications;
 
-    public UserService(IUserRepository userRepository, IMapper mapper, IExecuteUserValidations executeUserValidations, IValidationNotifications validationNotifications)
+    public UserService(IUserRepository userRepository, IExecuteUserValidations executeUserValidations, IValidationNotifications validationNotifications)
     {
         _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
-        _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-        _executeUserValidations = executeUserValidations ?? throw new ArgumentNullException(nameof(executeUserValidations));
         _validationNotifications = validationNotifications ?? throw new ArgumentNullException(nameof(validationNotifications));
     }
 
-    public async Task CreateUser(PostUserRequestDTO postUserRequestDto)
+    public async Task CreateUser(User user)
     {
-        _executeUserValidations.ExecuteUserSaveValidation(postUserRequestDto);
         if (!_validationNotifications.HasErrors())
-        {
-            var user = _mapper.Map<User>(postUserRequestDto);
             await _userRepository.CreateUser(user);
-        }
     }
 
     public async Task DeleteUser(int id)
@@ -37,14 +28,10 @@ public class UserService : IUserService
         await _userRepository.DeleteUser(id);
     }
 
-    public async Task EditUser(PatchUserRequestDTO patchUserRequestDto)
+    public async Task EditUser(User user)
     {
-        _executeUserValidations.ExecuteUserChangeValidation(patchUserRequestDto);
         if (!_validationNotifications.HasErrors())
-        {
-            var user = _mapper.Map<User>(patchUserRequestDto);
             await _userRepository.EditUser(user);
-        }
     }
 
     public async Task<IEnumerable<User>> GetAllUsers()

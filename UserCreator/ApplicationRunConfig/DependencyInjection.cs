@@ -1,8 +1,10 @@
-﻿using UserCreator.Application.Services;
-using UserCreator.Application.ServicesInterfaces;
+﻿using UserCreator.Application.ApplicationServices;
+using UserCreator.Application.ApplicationServicesInterfaces;
+using UserCreator.Domain.Interfaces.Repositories;
+using UserCreator.Domain.Interfaces.Services;
+using UserCreator.Domain.Services;
 using UserCreator.Domain.Validations;
 using UserCreator.Domain.Validations.Middlewares;
-using UserCreator.Domain.RepositoriesInterfaces;
 using UserCreator.Infrastructure.Repositories;
 
 namespace UserCreator.ApplicationRunConfig;
@@ -14,6 +16,7 @@ public static class DependencyInjection
         serviceCollection.AddScoped<IValidationNotifications, ValidationNotifications>();
 
         serviceCollection.AddScoped<IUserService, UserService>();
+        serviceCollection.AddScoped<IApplicationServiceUser, ApplicationServiceUser>();
 
         serviceCollection.AddScoped<IUserRepository, UserRepository>();
 

@@ -1,4 +1,4 @@
-﻿namespace UserCreator.Domain.DTOs.Responses.User;
+﻿namespace UserCreator.Application.DTOs.Responses.User;
 
 public class AddressResponseDTO
 {

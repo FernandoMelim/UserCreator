@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using UserCreator.Domain.Enums;
 
-namespace UserCreator.Domain.DTOs.Requets.User;
+namespace UserCreator.Application.DTOs.Requets.User;
 
-public class PostUserRequestDTO : ApiBaseRequest
+public class PatchUserRequestDTO : ApiBaseRequest
 {
+    public int Id { get; set; }
+
     public string Name { get; set; }
 
     public string Email { get; set; }
@@ -15,6 +17,7 @@ public class PostUserRequestDTO : ApiBaseRequest
 
     public string Phone { get; set; }
 
-    public List<CreateAddressRequestDTO> Adresses { get; set; }
+    public List<ChangeAddressRequestDTO> Adresses { get; set; }
+
 }
 

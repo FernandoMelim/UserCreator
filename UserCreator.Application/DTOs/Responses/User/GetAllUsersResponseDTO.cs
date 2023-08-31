@@ -1,4 +1,6 @@
-﻿namespace UserCreator.Domain.DTOs.Responses.User;
+﻿using UserCreator.Domain.DTOs.Responses.User;
+
+namespace UserCreator.Application.DTOs.Responses.User;
 
 public class GetAllUsersResponseDTO : ApiBaseResponse
 {

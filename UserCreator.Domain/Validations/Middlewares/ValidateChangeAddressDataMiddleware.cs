@@ -1,5 +1,4 @@
-﻿using UserCreator.Domain.DTOs.Requets;
-using UserCreator.Domain.DTOs.Requets.User;
+﻿using UserCreator.Domain.Entities;
 
 namespace UserCreator.Domain.Validations.Middlewares;
 
@@ -13,9 +12,9 @@ public class ValidateChangeAddressDataMiddleware : IValidationMiddleware
 
     }
 
-    public void Validate(ApiBaseRequest apiBaseRequest)
+    public void Validate(BaseEntity user)
     {
-        var addresses = (apiBaseRequest as PatchUserRequestDTO).Adresses;
+        var addresses = (user as User).Adresses;
 
         if (!addresses.Any())
         {

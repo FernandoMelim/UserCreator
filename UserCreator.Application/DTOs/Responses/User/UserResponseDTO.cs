@@ -1,4 +1,4 @@
-﻿using UserCreator.Domain.Entities;
+﻿using UserCreator.Application.DTOs.Responses.User;
 
 namespace UserCreator.Domain.DTOs.Responses.User;
 

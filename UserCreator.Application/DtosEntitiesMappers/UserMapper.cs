@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using UserCreator.Domain.DTOs.Requets.User;
+using UserCreator.Application.DTOs.Requets.User;
 using UserCreator.Domain.DTOs.Responses.User;
 using UserCreator.Domain.Entities;
 

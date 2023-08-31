@@ -1,18 +1,10 @@
-﻿
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Moq;
-using Xunit;
-using UserCreator.Application.Services;
-using UserCreator.Domain.Validations;
-using UserCreator.Domain.DTOs.Requets.User;
+﻿using AutoMapper;
+using UserCreator.Application.DTOs.Requets.User;
+using UserCreator.Application.DtosEntitiesMappers;
 using UserCreator.Domain.Entities;
-using UserCreator.Domain.RepositoriesInterfaces;
-using AutoMapper;
+using UserCreator.Domain.Interfaces.Repositories;
+using UserCreator.Domain.Services;
+using UserCreator.Domain.Validations;
 using UserCreator.Infrastructure.DtosEntitiesMappers;
 
 namespace UserCreator.Tests.UserCreator.Application.Services;

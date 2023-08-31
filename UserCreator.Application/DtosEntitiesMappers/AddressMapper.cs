@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using UserCreator.Domain.DTOs.Requets.User;
-using UserCreator.Domain.DTOs.Responses.User;
+using UserCreator.Application.DTOs.Requets.User;
+using UserCreator.Application.DTOs.Responses.User;
 using UserCreator.Domain.Entities;
 
-namespace UserCreator.Infrastructure.DtosEntitiesMappers;
+namespace UserCreator.Application.DtosEntitiesMappers;
 
 public class AddressMapper : Profile
 {

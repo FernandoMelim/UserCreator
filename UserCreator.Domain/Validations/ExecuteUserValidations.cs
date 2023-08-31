@@ -1,5 +1,5 @@
-﻿using UserCreator.Domain.Validations.Middlewares;
-using UserCreator.Domain.DTOs.Requets.User;
+﻿using UserCreator.Domain.Entities;
+using UserCreator.Domain.Validations.Middlewares;
 
 namespace UserCreator.Domain.Validations
 {
@@ -39,19 +39,19 @@ namespace UserCreator.Domain.Validations
             _userMiddlewares.Add(_validateChangeAddressDataMiddleware);
         }
 
-        public void ExecuteUserSaveValidation(PostUserRequestDTO postUserRequestDto)
+        public void ExecuteUserSaveValidation(User user)
         {
             ConfigureUserSaveValidation();
             foreach (var validationMiddleware in _userMiddlewares)
-                validationMiddleware.Validate(postUserRequestDto);
+                validationMiddleware.Validate(user);
             _userMiddlewares.Clear();
         }
 
-        public void ExecuteUserChangeValidation(PatchUserRequestDTO patchUserRequestDto)
+        public void ExecuteUserChangeValidation(User user)
         {
             ConfigureUserChangeValidation();
             foreach (var validationMiddleware in _userMiddlewares)
-                validationMiddleware.Validate(patchUserRequestDto);
+                validationMiddleware.Validate(user);
             _userMiddlewares.Clear();
         }
     }

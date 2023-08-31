@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿namespace UserCreator.Application.DTOs.Requets.User;
 
-namespace UserCreator.Domain.DTOs.Requets.User;
-
-public class CreateAddressRequestDTO : ApiBaseRequest
+public class ChangeAddressRequestDTO : ApiBaseRequest
 {
+    public int Id { get; set; }
+
     public string Street { get; set; }
 
     public int Number { get; set; }

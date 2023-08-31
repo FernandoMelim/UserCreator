@@ -1,9 +1,7 @@
-﻿namespace UserCreator.Domain.Entities;
+﻿namespace UserCreator.Application.DTOs.Requets.User;
 
-public class Address : BaseEntity
+public class CreateAddressRequestDTO : ApiBaseRequest
 {
-    public int UserId { get; set; }
-
     public string Street { get; set; }
 
     public int Number { get; set; }
@@ -13,7 +11,5 @@ public class Address : BaseEntity
     public string State { get; set; }
 
     public string PostalCode { get; set; }
-
-    public User User { get; set; }
 }
 

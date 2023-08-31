@@ -1,9 +1,9 @@
-﻿using UserCreator.Domain.DTOs.Requets;
+﻿using UserCreator.Domain.Entities;
 
 namespace UserCreator.Domain.Validations.Middlewares
 {
     public interface IValidationMiddleware
     {
-        void Validate(ApiBaseRequest apiBaseRequest);
+        void Validate(BaseEntity apiBaseRequest);
     }
 }

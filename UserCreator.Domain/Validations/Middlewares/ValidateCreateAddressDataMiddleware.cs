@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using UserCreator.Domain.DTOs.Requets;
-using UserCreator.Domain.DTOs.Requets.User;
+﻿using UserCreator.Domain.Entities;
 
 namespace UserCreator.Domain.Validations.Middlewares;
 
@@ -14,9 +12,9 @@ public class ValidateCreateAddressDataMiddleware : IValidationMiddleware
 
     }
 
-    public void Validate(ApiBaseRequest apiBaseRequest)
+    public void Validate(BaseEntity user)
     {
-        var addresses = (apiBaseRequest as PostUserRequestDTO).Adresses;
+        var addresses = (user as User).Adresses;
 
         if(!addresses.Any())
         {
