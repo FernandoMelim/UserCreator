@@ -7,6 +7,7 @@ using UserCreator.Application.DTOs.Responses;
 using UserCreator.Application.DTOs.Responses.User;
 using UserCreator.Application.DtosEntitiesMappers;
 using UserCreator.Controllers;
+using UserCreator.Domain.DTOs.Responses.User;
 using UserCreator.Domain.Entities;
 using UserCreator.Domain.Interfaces.Services;
 using UserCreator.Domain.Validations;
@@ -48,7 +49,7 @@ public class UserControllerTests
         );
 
         int userId = 123;
-        var user = new User();
+        var user = new GetUserResponseDTO();
         mockService.Setup(service => service.GetUserById(userId)).ReturnsAsync(user);
 
         // Act
@@ -74,7 +75,7 @@ public class UserControllerTests
             CreateMapper()
         );
 
-        var users = new List<User> { new User(), new User() };
+        var users = new GetAllUsersResponseDTO() { Users = new List<UserResponseDTO>() };
         mockService.Setup(service => service.GetAllUsers()).ReturnsAsync(users);
 
         // Act
@@ -93,6 +94,7 @@ public class UserControllerTests
         var mockService = new Mock<IApplicationServiceUser>();
         var mockValidationNotifications = new Mock<IValidationNotifications>();
         mockValidationNotifications.Setup(n => n.HasErrors()).Returns(false);
+        mockService.Setup(s => s.CreateUser(It.IsAny<PostUserRequestDTO>()).Result).Returns(new PostUserResponseDTO());
 
         var controller = new UserController(
             mockService.Object,
@@ -118,6 +120,7 @@ public class UserControllerTests
         var mockService = new Mock<IApplicationServiceUser>();
         var mockValidationNotifications = new Mock<IValidationNotifications>();
         mockValidationNotifications.Setup(n => n.HasErrors()).Returns(false);
+        mockService.Setup(s => s.DeleteUser(It.IsAny<int>()).Result).Returns(new DeleteUserResponseDTO());
 
         var controller = new UserController(
             mockService.Object,
@@ -143,6 +146,7 @@ public class UserControllerTests
         var mockService = new Mock<IApplicationServiceUser>();
         var mockValidationNotifications = new Mock<IValidationNotifications>();
         mockValidationNotifications.Setup(n => n.HasErrors()).Returns(false);
+        mockService.Setup(s => s.EditUser(It.IsAny<PatchUserRequestDTO>()).Result).Returns(new PatchUserResponseDTO());
 
         var controller = new UserController(
             mockService.Object,

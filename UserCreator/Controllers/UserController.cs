@@ -32,13 +32,7 @@ public class UserController : ApiControllerBase
     public async Task<ActionResult<GetUserResponseDTO>> Get([FromRoute] int id)
     {
         var user = await _applicationServiceUser.GetUserById(id);
-
-        var getUserResponseDTO = new GetUserResponseDTO
-        {
-            User = _mapper.Map<UserResponseDTO>(user)
-        };
-
-        return await Return(getUserResponseDTO);
+        return await Return(user);
     }
 
     [HttpGet]
@@ -46,13 +40,7 @@ public class UserController : ApiControllerBase
     public async Task<ActionResult<GetAllUsersResponseDTO>> Get()
     {
         var result = await _applicationServiceUser.GetAllUsers();
-
-        var dto =  new GetAllUsersResponseDTO()
-        {
-            Users = _mapper.Map<List<UserResponseDTO>>(result),
-        };
-
-        return await Return(dto);
+        return await Return(result);
     }
 
     [HttpPost]
@@ -60,8 +48,8 @@ public class UserController : ApiControllerBase
     [ProducesResponseType(422, Type = typeof(ApiBaseResponse))]
     public async Task<ActionResult<PostUserResponseDTO>> Post([FromBody] PostUserRequestDTO postUserRequestDto)
     {
-        await _applicationServiceUser.CreateUser(postUserRequestDto);
-        return await Return(new PostUserResponseDTO());
+        var result = await _applicationServiceUser.CreateUser(postUserRequestDto);
+        return await Return(result);
     }
 
     [HttpDelete("{id}")]
@@ -69,8 +57,8 @@ public class UserController : ApiControllerBase
     [ProducesResponseType(404, Type = typeof(ApiBaseResponse))]
     public async Task<ActionResult<DeleteUserResponseDTO>> Delete([FromRoute] int id)
     {
-        await _applicationServiceUser.DeleteUser(id);
-        return await Return(new DeleteUserResponseDTO());
+        var result = await _applicationServiceUser.DeleteUser(id);
+        return await Return(result);
     }
 
     [HttpPatch]
@@ -79,8 +67,8 @@ public class UserController : ApiControllerBase
     [ProducesResponseType(422, Type = typeof(ApiBaseResponse))]
     public async Task<ActionResult<PatchUserResponseDTO>> Patch([FromBody] PatchUserRequestDTO patchUserRequestDto)
     {
-        await _applicationServiceUser.EditUser(patchUserRequestDto);
-        return await Return(new PatchUserResponseDTO());
+        var result = await _applicationServiceUser.EditUser(patchUserRequestDto);
+        return await Return(result);
     }
 }
 
