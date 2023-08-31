@@ -15,10 +15,12 @@ public class UserService : IUserService
     {
         _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         _validationNotifications = validationNotifications ?? throw new ArgumentNullException(nameof(validationNotifications));
+        _executeUserValidations = executeUserValidations ?? throw new ArgumentNullException(nameof(executeUserValidations));
     }
 
     public async Task CreateUser(User user)
     {
+        _executeUserValidations.ExecuteUserSaveValidation(user);
         if (!_validationNotifications.HasErrors())
             await _userRepository.CreateUser(user);
     }
@@ -30,6 +32,7 @@ public class UserService : IUserService
 
     public async Task EditUser(User user)
     {
+        _executeUserValidations.ExecuteUserChangeValidation(user);
         if (!_validationNotifications.HasErrors())
             await _userRepository.EditUser(user);
     }
