@@ -22,8 +22,6 @@ DataBaseConfig.ExecuteMigrations(builder.Configuration, app);
 MiddlewaresConfig.ConfigureMiddlewares(app);
 CorsConfig.ConfigureCors(app);
 
-
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

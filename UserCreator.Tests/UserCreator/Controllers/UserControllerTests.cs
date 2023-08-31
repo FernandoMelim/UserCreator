@@ -102,7 +102,7 @@ public class UserControllerTests
             CreateMapper()
         );
 
-        var userDto = new PostUserRequestDTO(); // Create a user DTO
+        var userDto = new PostUserRequestDTO();
 
         // Act
         var result = await controller.Post(userDto);
@@ -128,7 +128,7 @@ public class UserControllerTests
             CreateMapper()
         );
 
-        int userId = 123; // Replace with a valid user ID
+        int userId = 123;
 
         // Act
         var result = await controller.Delete(userId);
@@ -154,7 +154,7 @@ public class UserControllerTests
             CreateMapper()
         );
 
-        var patchUserDto = new PatchUserRequestDTO(); // Create a patch user DTO
+        var patchUserDto = new PatchUserRequestDTO();
 
         // Act
         var result = await controller.Patch(patchUserDto);

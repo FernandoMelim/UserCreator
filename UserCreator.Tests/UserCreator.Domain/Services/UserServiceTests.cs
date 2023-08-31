@@ -122,7 +122,7 @@ public class UserServiceTests
             Mock.Of<IValidationNotifications>()
         );
 
-        int userIdToDelete = 123; // Replace with a valid user ID
+        int userIdToDelete = 123;
 
         // Act
         await userService.DeleteUser(userIdToDelete);
