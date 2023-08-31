@@ -1,6 +1,6 @@
 ﻿using UserCreator.Domain.DTOs.Requets;
 
-namespace UserCreator.Application.Validations.Middlewares
+namespace UserCreator.Domain.Validations.Middlewares
 {
     public interface IValidationMiddleware
     {

@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
 using UserCreator.Application.Services;
-using UserCreator.Application.Validations;
+using UserCreator.Domain.Validations;
 using UserCreator.Domain.DTOs.Requets.User;
 using UserCreator.Domain.Entities;
 using UserCreator.Domain.RepositoriesInterfaces;

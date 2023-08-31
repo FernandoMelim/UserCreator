@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using UserCreator.Application.Validations;
+using UserCreator.Domain.Validations;
 using UserCreator.Domain.DTOs.Responses;
 
 namespace UserCreator.Controllers;

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using UserCreator.Application.ServicesInterfaces;
-using UserCreator.Application.Validations;
+using UserCreator.Domain.Validations;
 using UserCreator.Controllers;
 using UserCreator.Domain.DTOs.Requets.User;
 using UserCreator.Domain.DTOs.Responses;

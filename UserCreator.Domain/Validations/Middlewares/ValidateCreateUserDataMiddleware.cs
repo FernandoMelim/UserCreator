@@ -2,7 +2,7 @@
 using UserCreator.Domain.DTOs.Requets;
 using UserCreator.Domain.DTOs.Requets.User;
 
-namespace UserCreator.Application.Validations.Middlewares;
+namespace UserCreator.Domain.Validations.Middlewares;
 
 public class ValidateCreateUserDataMiddleware : IValidationMiddleware
 {

@@ -1,4 +1,4 @@
-﻿namespace UserCreator.Application.Validations;
+﻿namespace UserCreator.Domain.Validations;
 
 public interface IValidationNotifications
 {

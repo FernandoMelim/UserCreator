@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
-using System.Net;
 using UserCreator.Application.ServicesInterfaces;
-using UserCreator.Application.Validations;
 using UserCreator.Domain.DTOs.Requets.User;
-using UserCreator.Domain.DTOs.Responses.User;
 using UserCreator.Domain.Entities;
 using UserCreator.Domain.RepositoriesInterfaces;
+using UserCreator.Domain.Validations;
 
 namespace UserCreator.Application.Services;
 

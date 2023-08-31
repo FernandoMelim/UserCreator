@@ -1,4 +1,4 @@
-﻿using UserCreator.Application.Validations;
+﻿using UserCreator.Domain.Validations;
 
 namespace UserCreator.Tests.UserCreator.Application.Validations;
 

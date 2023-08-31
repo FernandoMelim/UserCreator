@@ -1,7 +1,7 @@
-﻿using UserCreator.Application.Validations.Middlewares;
+﻿using UserCreator.Domain.Validations.Middlewares;
 using UserCreator.Domain.DTOs.Requets.User;
 
-namespace UserCreator.Application.Validations
+namespace UserCreator.Domain.Validations
 {
     public class ExecuteUserValidations : IExecuteUserValidations
     {

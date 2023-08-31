@@ -1,6 +1,6 @@
 ﻿using UserCreator.Domain.DTOs.Requets.User;
 
-namespace UserCreator.Application.Validations;
+namespace UserCreator.Domain.Validations;
 
 public interface IExecuteUserValidations
 {

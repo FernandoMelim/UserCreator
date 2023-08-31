@@ -1,7 +1,7 @@
 ﻿using UserCreator.Application.Services;
 using UserCreator.Application.ServicesInterfaces;
-using UserCreator.Application.Validations;
-using UserCreator.Application.Validations.Middlewares;
+using UserCreator.Domain.Validations;
+using UserCreator.Domain.Validations.Middlewares;
 using UserCreator.Domain.RepositoriesInterfaces;
 using UserCreator.Infrastructure.Repositories;
 

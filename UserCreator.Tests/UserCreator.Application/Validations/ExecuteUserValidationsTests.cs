@@ -1,5 +1,5 @@
-﻿using UserCreator.Application.Validations.Middlewares;
-using UserCreator.Application.Validations;
+﻿using UserCreator.Domain.Validations.Middlewares;
+using UserCreator.Domain.Validations;
 using UserCreator.Domain.DTOs.Requets.User;
 
 namespace UserCreator.Tests.UserCreator.Application.Validations;
