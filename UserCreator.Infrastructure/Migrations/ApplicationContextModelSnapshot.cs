@@ -81,7 +81,7 @@ namespace UserCreator.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("BirthDate")
+                    b.Property<DateTime?>("BirthDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("BirthDate");
 
@@ -103,7 +103,7 @@ namespace UserCreator.Infrastructure.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasColumnName("Phone");
 
-                    b.Property<int>("SchoolingLevel")
+                    b.Property<int?>("SchoolingLevel")
                         .HasColumnType("int")
                         .HasColumnName("SchoolingLevel");
 
