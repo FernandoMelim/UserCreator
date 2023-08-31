@@ -1,13 +1,9 @@
-﻿using AutoMapper;
-using UserCreator.Application.DTOs.Requets.User;
-using UserCreator.Application.DtosEntitiesMappers;
-using UserCreator.Domain.Entities;
+﻿using UserCreator.Domain.Entities;
 using UserCreator.Domain.Interfaces.Repositories;
 using UserCreator.Domain.Services;
 using UserCreator.Domain.Validations;
-using UserCreator.Infrastructure.DtosEntitiesMappers;
 
-namespace UserCreator.Tests.UserCreator.Application.Services;
+namespace UserCreator.Tests.UserCreator.Domain.Services;
 
 
 
@@ -17,17 +13,6 @@ public class UserServiceTests
     public UserServiceTests()
     {
 
-    }
-
-    private IMapper CreateMapper()
-    {
-        var configuration = new MapperConfiguration(cfg =>
-        {
-            cfg.AddProfile<UserMapper>();
-            cfg.AddProfile<AddressMapper>();
-        });
-
-        return configuration.CreateMapper();
     }
 
     [Fact]
@@ -41,15 +26,14 @@ public class UserServiceTests
 
         var userService = new UserService(
             mockRepository.Object,
-            CreateMapper(),
             mockValidationExecutor.Object,
             mockValidationNotifications.Object
         );
 
-        var userDto = new PostUserRequestDTO();
+        var user = new User();
 
         // Act
-        await userService.CreateUser(userDto);
+        await userService.CreateUser(user);
 
         // Assert
         mockRepository.Verify(repo => repo.CreateUser(It.IsAny<User>()), Times.Once);
@@ -66,15 +50,14 @@ public class UserServiceTests
 
         var userService = new UserService(
             mockRepository.Object,
-            CreateMapper(),
             mockValidationExecutor.Object,
             mockValidationNotifications.Object
         );
 
-        var userDto = new PostUserRequestDTO();
+        var user = new User();
 
         // Act
-        await userService.CreateUser(userDto);
+        await userService.CreateUser(user);
 
         // Assert
         mockRepository.Verify(repo => repo.CreateUser(It.IsAny<User>()), Times.Never);
@@ -91,15 +74,14 @@ public class UserServiceTests
 
         var userService = new UserService(
             mockRepository.Object,
-            CreateMapper(),
             mockValidationExecutor.Object,
             mockValidationNotifications.Object
         );
 
-        var userDto = new PatchUserRequestDTO();
+        var user = new User();
 
         // Act
-        await userService.EditUser(userDto);
+        await userService.EditUser(user);
 
         // Assert
         mockRepository.Verify(repo => repo.EditUser(It.IsAny<User>()), Times.Once);
@@ -116,15 +98,14 @@ public class UserServiceTests
 
         var userService = new UserService(
             mockRepository.Object,
-            CreateMapper(),
             mockValidationExecutor.Object,
             mockValidationNotifications.Object
         );
 
-        var userDto = new PatchUserRequestDTO();
+        var user = new User();
 
         // Act
-        await userService.EditUser(userDto);
+        await userService.EditUser(user);
 
         // Assert
         mockRepository.Verify(repo => repo.EditUser(It.IsAny<User>()), Times.Never);
@@ -137,7 +118,6 @@ public class UserServiceTests
         var mockRepository = new Mock<IUserRepository>();
         var userService = new UserService(
             mockRepository.Object,
-            CreateMapper(),
             Mock.Of<IExecuteUserValidations>(),
             Mock.Of<IValidationNotifications>()
         );
@@ -158,7 +138,6 @@ public class UserServiceTests
         var mockRepository = new Mock<IUserRepository>();
         var userService = new UserService(
             mockRepository.Object,
-            CreateMapper(),
             Mock.Of<IExecuteUserValidations>(),
             Mock.Of<IValidationNotifications>()
         );
@@ -185,7 +164,6 @@ public class UserServiceTests
         var mockRepository = new Mock<IUserRepository>();
         var userService = new UserService(
             mockRepository.Object,
-            CreateMapper(),
             Mock.Of<IExecuteUserValidations>(),
             Mock.Of<IValidationNotifications>()
         );

@@ -1,8 +1,9 @@
-﻿using UserCreator.Domain.Validations.Middlewares;
+﻿using UserCreator.Domain.Entities;
+using UserCreator.Domain.Enums;
 using UserCreator.Domain.Validations;
-using UserCreator.Domain.DTOs.Requets.User;
+using UserCreator.Domain.Validations.Middlewares;
 
-namespace UserCreator.Tests.UserCreator.Application.Validations;
+namespace UserCreator.Tests.UserCreator.Domain.Validations;
 
 public class ExecuteUserValidationsTests
 {
@@ -29,16 +30,16 @@ public class ExecuteUserValidationsTests
             validateChangeAddressDataMiddleware
         );
 
-        var postUserRequestDto = new PostUserRequestDTO()
+        var user = new User()
         {
             Name = "name",
             BirthDate = DateTime.Now,
             Email = "email",
             Phone = "232342ddd3",
-            SchoolingLevel = Domain.Enums.SchoolingLevelEnum.Elementary,
-            Adresses = new List<CreateAddressRequestDTO> 
+            SchoolingLevel = (int)SchoolingLevelEnum.Elementary,
+            Adresses = new List<Address>
             {
-                new CreateAddressRequestDTO()
+                new Address()
                 {
                     City = "city",
                     Number = 1,
@@ -50,7 +51,7 @@ public class ExecuteUserValidationsTests
         };
 
         // Act
-        executeUserValidations.ExecuteUserSaveValidation(postUserRequestDto);
+        executeUserValidations.ExecuteUserSaveValidation(user);
 
         var errors = validationNotificator.GetErrors();
 
@@ -79,16 +80,16 @@ public class ExecuteUserValidationsTests
             validateChangeAddressDataMiddleware
         );
 
-        var patchUserRequestDto = new PatchUserRequestDTO()
+        var patchUserRequestDto = new User()
         {
             Name = "name",
             BirthDate = DateTime.Now,
             Email = "email",
             Phone = "232342ddd3",
-            SchoolingLevel = Domain.Enums.SchoolingLevelEnum.Elementary,
-            Adresses = new List<ChangeAddressRequestDTO>
+            SchoolingLevel = (int)SchoolingLevelEnum.Elementary,
+            Adresses = new List<Address>
             {
-                new ChangeAddressRequestDTO()
+                new Address()
                 {
                     City = "city",
                     Number = 1,

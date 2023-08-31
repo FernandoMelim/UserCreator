@@ -1,6 +1,6 @@
 ﻿using UserCreator.Domain.Validations;
 
-namespace UserCreator.Tests.UserCreator.Application.Validations;
+namespace UserCreator.Tests.UserCreator.Domain.Validations;
 
 public class ValidationNotificationsTests
 {

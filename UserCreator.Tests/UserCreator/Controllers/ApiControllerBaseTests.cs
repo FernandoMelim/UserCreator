@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using UserCreator.Domain.Validations;
+using UserCreator.Application.DTOs.Responses;
 using UserCreator.Controllers;
-using UserCreator.Domain.DTOs.Responses;
+using UserCreator.Domain.Validations;
 
 namespace UserCreator.Tests.UserCreator.Controllers;
 

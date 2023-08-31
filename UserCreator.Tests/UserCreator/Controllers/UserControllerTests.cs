@@ -1,13 +1,15 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using UserCreator.Application.ServicesInterfaces;
-using UserCreator.Domain.Validations;
+using UserCreator.Application.ApplicationServicesInterfaces;
+using UserCreator.Application.DTOs.Requets.User;
+using UserCreator.Application.DTOs.Responses;
+using UserCreator.Application.DTOs.Responses.User;
+using UserCreator.Application.DtosEntitiesMappers;
 using UserCreator.Controllers;
-using UserCreator.Domain.DTOs.Requets.User;
-using UserCreator.Domain.DTOs.Responses;
-using UserCreator.Domain.DTOs.Responses.User;
 using UserCreator.Domain.Entities;
+using UserCreator.Domain.Interfaces.Services;
+using UserCreator.Domain.Validations;
 using UserCreator.Infrastructure.DtosEntitiesMappers;
 
 namespace UserCreator.Tests.UserCreator.Controllers;
@@ -35,7 +37,7 @@ public class UserControllerTests
     public async Task GetUser()
     {
         // Arrange
-        var mockService = new Mock<IUserService>();
+        var mockService = new Mock<IApplicationServiceUser>();
         var mockValidationNotifications = new Mock<IValidationNotifications>();
         mockValidationNotifications.Setup(n => n.HasErrors()).Returns(false);
 
@@ -62,7 +64,7 @@ public class UserControllerTests
     public async Task GetAllUsers()
     {
         // Arrange
-        var mockService = new Mock<IUserService>();
+        var mockService = new Mock<IApplicationServiceUser>();
         var mockValidationNotifications = new Mock<IValidationNotifications>();
         mockValidationNotifications.Setup(n => n.HasErrors()).Returns(false);
 
@@ -88,7 +90,7 @@ public class UserControllerTests
     public async Task Post_ValidDto_UserCreated_ReturnsPostUserResponse()
     {
         // Arrange
-        var mockService = new Mock<IUserService>();
+        var mockService = new Mock<IApplicationServiceUser>();
         var mockValidationNotifications = new Mock<IValidationNotifications>();
         mockValidationNotifications.Setup(n => n.HasErrors()).Returns(false);
 
@@ -113,7 +115,7 @@ public class UserControllerTests
     public async Task Delete_ValidId_UserDeleted_ReturnsDeleteUserResponse()
     {
         // Arrange
-        var mockService = new Mock<IUserService>();
+        var mockService = new Mock<IApplicationServiceUser>();
         var mockValidationNotifications = new Mock<IValidationNotifications>();
         mockValidationNotifications.Setup(n => n.HasErrors()).Returns(false);
 
@@ -138,7 +140,7 @@ public class UserControllerTests
     public async Task Patch_ValidDto_UserEdited_ReturnsPatchUserResponse()
     {
         // Arrange
-        var mockService = new Mock<IUserService>();
+        var mockService = new Mock<IApplicationServiceUser>();
         var mockValidationNotifications = new Mock<IValidationNotifications>();
         mockValidationNotifications.Setup(n => n.HasErrors()).Returns(false);
 
