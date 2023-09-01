@@ -17,7 +17,8 @@ public class UserController : ApiControllerBase
     private readonly IApplicationServiceUser _applicationServiceUser;
     private readonly IMapper _mapper;
 
-    public UserController(IApplicationServiceUser applicationServiceUser,
+    public UserController(
+        IApplicationServiceUser applicationServiceUser,
         IValidationNotifications validationNotifications,
         IMapper mapper)
         : base(validationNotifications)

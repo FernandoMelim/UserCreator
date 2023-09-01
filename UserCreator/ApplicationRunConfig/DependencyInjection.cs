@@ -1,5 +1,11 @@
-﻿using UserCreator.Application.ApplicationServices;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Identity;
+using System.Reflection;
+using UserCreator.Application.ApplicationServices;
 using UserCreator.Application.ApplicationServicesInterfaces;
+using UserCreator.Application.DTOs.Requets.User;
+using UserCreator.Application.DtoValidators;
+using UserCreator.Domain.Entities;
 using UserCreator.Domain.Interfaces.Repositories;
 using UserCreator.Domain.Interfaces.Services;
 using UserCreator.Domain.Services;
@@ -27,6 +33,17 @@ public static class DependencyInjection
         serviceCollection.AddScoped<IExecuteUserValidations, ExecuteUserValidations>();
 
         serviceCollection.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+        AddFluentValidationValidators(serviceCollection);
+    }
+
+    private static void AddFluentValidationValidators(IServiceCollection serviceCollection)
+    {
+        serviceCollection.AddScoped<IValidator<PostUserRequestDTO>, PostUserRequestValidator>();
+        serviceCollection.AddScoped<IValidator<PatchUserRequestDTO>, PatchUserRequestValidator>();
+
+        serviceCollection.AddScoped<IValidator<ChangeAddressRequestDTO>, ChangeAddressRequestValidator>();
+        serviceCollection.AddScoped<IValidator<CreateAddressRequestDTO>, CreateAddressRequestValidator>();
     }
 }
 
