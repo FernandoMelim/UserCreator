@@ -1,5 +1,5 @@
 ﻿using UserCreator.Domain.Entities;
-using UserCreator.Domain.Enums;
+using UserCreator.Domain.Interfaces.Repositories;
 using UserCreator.Domain.Validations;
 using UserCreator.Domain.Validations.Middlewares;
 
@@ -7,111 +7,75 @@ namespace UserCreator.Tests.UserCreator.Domain.Validations;
 
 public class ExecuteUserValidationsTests
 {
-    public ExecuteUserValidationsTests()
+    [Fact]
+    public async Task ExecuteUserSaveValidation_WithValidUser_NoErrors()
     {
+        // Arrange
+        var mockValidationMiddlewareUserData = new Mock<ValidateSaveUserDataMiddleware>(Mock.Of<IValidationNotifications>(), Mock.Of<IUserRepository>());
+        var mockValidationMiddlewareAddressData = new Mock<ValidateSaveAddressDataMiddleware>(Mock.Of<IValidationNotifications>(), Mock.Of<IAddressRepository>());
 
+        var executeUserValidations = new ExecuteUserValidations(
+            mockValidationMiddlewareUserData.Object,
+            mockValidationMiddlewareAddressData.Object
+        );
+
+        var user = new User() { Adresses = new List<Address>() };
+
+        // Act
+        await executeUserValidations.ExecuteUserSaveValidation(user);
+
+        // Assert
+        mockValidationMiddlewareUserData.Verify(middleware => middleware.Validate(user), Times.Once);
+        mockValidationMiddlewareAddressData.Verify(middleware => middleware.Validate(user), Times.Once);
     }
 
     [Fact]
-    public void ExecuteUserSaveValidation_ValidDto_CallsAllMiddlewaresAndClearsList()
+    public async Task ExecuteUserSaveValidation_UserValidationErrors_ValidationNotificationsContainsErrors()
     {
         // Arrange
-        var validationNotificator = new ValidationNotifications();
+        var mockValidationNotifications = new Mock<IValidationNotifications>();
+        var mockValidationMiddlewareUserData = new Mock<ValidateSaveUserDataMiddleware>(mockValidationNotifications.Object, Mock.Of<IUserRepository>());
+        var mockValidationMiddlewareAddressData = new Mock<ValidateSaveAddressDataMiddleware>(Mock.Of<IValidationNotifications>(), Mock.Of<IAddressRepository>());
 
-        var validateCreateUserDataMiddleware = new ValidateCreateUserDataMiddleware(validationNotificator);
-        var validateCreateAddressDataMiddleware = new ValidateCreateAddressDataMiddleware(validationNotificator);
-        var validateChangeUserDataMiddleware = new ValidateChangeUserDataMiddleware(validationNotificator);
-        var validateChangeAddressDataMiddleware = new ValidateChangeAddressDataMiddleware(validationNotificator);
+        mockValidationMiddlewareUserData.Setup(middleware => middleware.Validate(It.IsAny<User>()))
+            .Callback(() => mockValidationNotifications.Object.AddError("Name", "User name is invalid"));
 
         var executeUserValidations = new ExecuteUserValidations(
-            validateCreateUserDataMiddleware,
-            validateCreateAddressDataMiddleware,
-            validateChangeUserDataMiddleware,
-            validateChangeAddressDataMiddleware
+            mockValidationMiddlewareUserData.Object,
+            mockValidationMiddlewareAddressData.Object
         );
 
-        var user = new User()
-        {
-            Name = "name",
-            BirthDate = DateTime.Now,
-            Email = "email",
-            Phone = "232342ddd3",
-            SchoolingLevel = (int)SchoolingLevelEnum.Elementary,
-            Adresses = new List<Address>
-            {
-                new Address()
-                {
-                    City = "city",
-                    Number = 1,
-                    PostalCode = "12345",
-                    State = "SP",
-                    Street = "stree"
-                }
-            }
-        };
+        var user = new User() { Adresses = new List<Address>() };
 
         // Act
-        executeUserValidations.ExecuteUserSaveValidation(user);
-
-        var errors = validationNotificator.GetErrors();
+        await executeUserValidations.ExecuteUserSaveValidation(user);
 
         // Assert
-        Assert.True(errors.ContainsKey("Email"));
-        Assert.True(errors.ContainsKey("Phone"));
-        Assert.True(errors.ContainsKey("Address.State"));
-        Assert.True(errors.ContainsKey("Address.PostalCode"));
+        mockValidationNotifications.Verify(validationNotifications => validationNotifications.AddError("Name", "User name is invalid"), Times.Once);
     }
 
     [Fact]
-    public void ExecuteUserChangeValidation_ValidDto_CallsAllMiddlewaresAndClearsList()
+    public async Task ExecuteUserSaveValidation_AddressValidationErrors_ValidationNotificationsContainsErrors()
     {
         // Arrange
-        var validationNotificator = new ValidationNotifications();
+        var mockValidationNotifications = new Mock<IValidationNotifications>();
+        var mockValidationMiddlewareUserData = new Mock<ValidateSaveUserDataMiddleware>(Mock.Of<IValidationNotifications>(), Mock.Of<IUserRepository>());
+        var mockValidationMiddlewareAddressData = new Mock<ValidateSaveAddressDataMiddleware>(mockValidationNotifications.Object, Mock.Of<IAddressRepository>());
 
-        var validateCreateUserDataMiddleware = new ValidateCreateUserDataMiddleware(validationNotificator);
-        var validateCreateAddressDataMiddleware = new ValidateCreateAddressDataMiddleware(validationNotificator);
-        var validateChangeUserDataMiddleware = new ValidateChangeUserDataMiddleware(validationNotificator);
-        var validateChangeAddressDataMiddleware = new ValidateChangeAddressDataMiddleware(validationNotificator);
+        mockValidationMiddlewareAddressData.Setup(middleware => middleware.Validate(It.IsAny<User>()))
+            .Callback(() => mockValidationNotifications.Object.AddError("Address[12345]", "Address is invalid"));
 
         var executeUserValidations = new ExecuteUserValidations(
-            validateCreateUserDataMiddleware,
-            validateCreateAddressDataMiddleware,
-            validateChangeUserDataMiddleware,
-            validateChangeAddressDataMiddleware
+            mockValidationMiddlewareUserData.Object,
+            mockValidationMiddlewareAddressData.Object
         );
 
-        var patchUserRequestDto = new User()
-        {
-            Name = "name",
-            BirthDate = DateTime.Now,
-            Email = "email",
-            Phone = "232342ddd3",
-            SchoolingLevel = (int)SchoolingLevelEnum.Elementary,
-            Adresses = new List<Address>
-            {
-                new Address()
-                {
-                    City = "city",
-                    Number = 1,
-                    PostalCode = "12345",
-                    State = "SP",
-                    Street = "stree"
-                }
-            }
-        };
+        var user = new User() { Adresses = new List<Address>() };
 
         // Act
-        executeUserValidations.ExecuteUserChangeValidation(patchUserRequestDto);
-
-        var errors = validationNotificator.GetErrors();
+        await executeUserValidations.ExecuteUserSaveValidation(user);
 
         // Assert
-        Assert.True(errors.ContainsKey("Id"));
-        Assert.True(errors.ContainsKey("Email"));
-        Assert.True(errors.ContainsKey("Phone"));
-        Assert.True(errors.ContainsKey("Address.Id"));
-        Assert.True(errors.ContainsKey("Address.State"));
-        Assert.True(errors.ContainsKey("Address.PostalCode"));
+        mockValidationNotifications.Verify(validationNotifications => validationNotifications.AddError("Address[12345]", "Address is invalid"), Times.Once);
     }
 }
-

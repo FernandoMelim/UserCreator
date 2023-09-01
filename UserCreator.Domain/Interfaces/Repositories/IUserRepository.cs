@@ -13,5 +13,7 @@ public interface IUserRepository
     Task<User> GetUser(int id);
 
     Task<IEnumerable<User>> GetAllUsers();
+
+    Task<bool> UserExistsInDatabase(string userName);
 }
 

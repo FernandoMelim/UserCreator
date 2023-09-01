@@ -62,5 +62,9 @@ public class UserRepository : IUserRepository
 
     public async Task<IEnumerable<User>> GetAllUsers()
         => await _db.Users.Include(x => x.Adresses).ToListAsync();
+
+    public async Task<bool> UserExistsInDatabase(string userName)
+        => await _db.Users.Where(x => x.Name.Equals(userName)).AnyAsync();
+    
 }
 

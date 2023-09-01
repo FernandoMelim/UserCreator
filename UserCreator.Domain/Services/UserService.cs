@@ -20,7 +20,7 @@ public class UserService : IUserService
 
     public async Task CreateUser(User user)
     {
-        _executeUserValidations.ExecuteUserSaveValidation(user);
+        await _executeUserValidations.ExecuteUserSaveValidation(user);
         if (!_validationNotifications.HasErrors())
             await _userRepository.CreateUser(user);
     }
@@ -32,7 +32,7 @@ public class UserService : IUserService
 
     public async Task EditUser(User user)
     {
-        _executeUserValidations.ExecuteUserChangeValidation(user);
+        await _executeUserValidations.ExecuteUserSaveValidation(user);
         if (!_validationNotifications.HasErrors())
             await _userRepository.EditUser(user);
     }

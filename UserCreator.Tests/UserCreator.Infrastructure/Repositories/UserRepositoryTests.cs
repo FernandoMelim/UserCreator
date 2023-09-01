@@ -24,6 +24,18 @@ public class UserRepositoryTests
         return new ApplicationContext(options);
     }
 
+    private async Task SeedData(ApplicationContext dbContext)
+    {
+        var users = new[]
+        {
+                new User { Name = "ExistingUser", Email = "test", Phone = "1234" },
+                new User { Name = "AnotherUser", Email = "test", Phone = "1234" }
+            };
+
+        await dbContext.Users.AddRangeAsync(users);
+        await dbContext.SaveChangesAsync();
+    }
+
     [Fact]
     public async Task CreateUser_ValidUser_UserAdded()
     {
@@ -251,6 +263,38 @@ public class UserRepositoryTests
 
         // Assert
         Assert.Equal(users.Count, retrievedUsers.Count());
+    }
+
+    [Fact]
+    public async Task UserExistsInDatabase_UserExists_ReturnsTrue()
+    {
+        // Arrange
+        var dbContext = CreateInMemoryDbContext();
+        await SeedData(dbContext);
+
+        var repository = new UserRepository(dbContext);
+
+        // Act
+        var exists = await repository.UserExistsInDatabase("ExistingUser");
+
+        // Assert
+        Assert.True(exists);
+    }
+
+    [Fact]
+    public async Task UserExistsInDatabase_UserDoesNotExist_ReturnsFalse()
+    {
+        // Arrange
+        var dbContext = CreateInMemoryDbContext();
+        await SeedData(dbContext);
+
+        var repository = new UserRepository(dbContext);
+
+        // Act
+        var exists = await repository.UserExistsInDatabase("NonExistingUser");
+
+        // Assert
+        Assert.False(exists);
     }
 }
 

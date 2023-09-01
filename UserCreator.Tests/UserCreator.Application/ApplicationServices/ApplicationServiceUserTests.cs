@@ -1,103 +1,126 @@
 ﻿using AutoMapper;
+using FluentAssertions;
+using FluentValidation;
+using FluentValidation.Results;
 using UserCreator.Application.ApplicationServices;
 using UserCreator.Application.DTOs.Requets.User;
-using UserCreator.Domain.DTOs.Responses.User;
+using UserCreator.Application.DTOs.Responses.User;
+using UserCreator.Application.DtosEntitiesMappers;
 using UserCreator.Domain.Entities;
 using UserCreator.Domain.Interfaces.Services;
+using UserCreator.Domain.Validations;
+using UserCreator.Infrastructure.DtosEntitiesMappers;
 
-namespace UserCreator.Tests.UserCreator.Application.ApplicationServices;
-
-public class ApplicationServiceUserTests
+namespace UserCreator.Tests.ApplicationServices
 {
-    [Fact]
-    public async Task CreateUser_ValidRequest_Success()
+    public class ApplicationServiceUserTests
     {
-        // Arrange
-        var mapperMock = new Mock<IMapper>();
-        var userServiceMock = new Mock<IUserService>();
-        var applicationService = new ApplicationServiceUser(mapperMock.Object, userServiceMock.Object);
-        var postUserRequestDto = new PostUserRequestDTO();
+        private readonly IMapper _mapper;
+        private readonly Mock<IUserService> _mockUserService;
+        private readonly Mock<IValidator<PostUserRequestDTO>> _mockPostUserRequestValidator;
+        private readonly Mock<IValidator<PatchUserRequestDTO>> _mockPatchUserRequestValidator;
+        private readonly Mock<IValidationNotifications> _mockValidationNotifications;
 
-        // Act
-        await applicationService.CreateUser(postUserRequestDto);
+        private readonly ApplicationServiceUser _applicationServiceUser;
 
-        // Assert
-        userServiceMock.Verify(s => s.CreateUser(It.IsAny<User>()), Times.Once);
-    }
+        public ApplicationServiceUserTests()
+        {
+            _mapper = new MapperConfiguration(cfg => { cfg.AddProfile<AddressMapper>(); cfg.AddProfile<UserMapper>(); }).CreateMapper();
+            _mockUserService = new Mock<IUserService>();
+            _mockPostUserRequestValidator = new Mock<IValidator<PostUserRequestDTO>>();
+            _mockPatchUserRequestValidator = new Mock<IValidator<PatchUserRequestDTO>>();
+            _mockValidationNotifications = new Mock<IValidationNotifications>();
 
-    [Fact]
-    public async Task DeleteUser_ValidId_Success()
-    {
-        // Arrange
-        var mapperMock = new Mock<IMapper>();
-        var userServiceMock = new Mock<IUserService>();
-        var applicationService = new ApplicationServiceUser(mapperMock.Object, userServiceMock.Object);
-        var userId = 1;
+            _applicationServiceUser = new ApplicationServiceUser(
+                _mapper,
+                _mockUserService.Object,
+                _mockPostUserRequestValidator.Object,
+                _mockPatchUserRequestValidator.Object,
+                _mockValidationNotifications.Object
+            );
+        }
 
-        // Act
-        await applicationService.DeleteUser(userId);
+        [Fact]
+        public async Task CreateUser_WithValidDto_ReturnsPostUserResponseDTO()
+        {
+            // Arrange
+            var postUserRequestDto = new PostUserRequestDTO();
+            _mockPostUserRequestValidator.Setup(validator => validator.ValidateAsync(postUserRequestDto, It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new ValidationResult());
 
-        // Assert
-        userServiceMock.Verify(s => s.DeleteUser(userId), Times.Once);
-    }
+            _mockUserService.Setup(service => service.CreateUser(It.IsAny<User>()))
+                .Returns(Task.CompletedTask);
 
-    [Fact]
-    public async Task EditUser_ValidRequest_Success()
-    {
-        // Arrange
-        var mapperMock = new Mock<IMapper>();
-        var userServiceMock = new Mock<IUserService>();
-        var applicationService = new ApplicationServiceUser(mapperMock.Object, userServiceMock.Object);
-        var patchUserRequestDto = new PatchUserRequestDTO();
+            // Act
+            var result = await _applicationServiceUser.CreateUser(postUserRequestDto);
 
-        // Act
-        await applicationService.EditUser(patchUserRequestDto);
+            // Assert
+            result.Should().BeOfType<PostUserResponseDTO>();
+        }
 
-        // Assert
-        userServiceMock.Verify(s => s.EditUser(It.IsAny<User>()), Times.Once);
-    }
+        [Fact]
+        public async Task DeleteUser_WithValidId_ReturnsDeleteUserResponseDTO()
+        {
+            // Arrange
+            int userId = 123;
+            _mockUserService.Setup(service => service.DeleteUser(userId))
+                .Returns(Task.CompletedTask);
 
-    [Fact]
-    public async Task GetAllUsers_ReturnsUsers_Success()
-    {
-        // Arrange
-        var mapperMock = new Mock<IMapper>();
-          
-        var userServiceMock = new Mock<IUserService>();
-        var applicationService = new ApplicationServiceUser(mapperMock.Object, userServiceMock.Object);
-        var users = new List<User> { new User() { Id = 1 }, new User() { Id = 2 } };
+            // Act
+            var result = await _applicationServiceUser.DeleteUser(userId);
 
-        mapperMock.Setup(s => s.Map<List<UserResponseDTO>>(users)).Returns(new List<UserResponseDTO>() { new UserResponseDTO() { Id = 1 }, new UserResponseDTO() { Id = 2 } });
-        userServiceMock.Setup(s => s.GetAllUsers()).ReturnsAsync(users);
+            // Assert
+            result.Should().BeOfType<DeleteUserResponseDTO>();
+        }
 
-        // Act
-        var result = await applicationService.GetAllUsers();
+        [Fact]
+        public async Task EditUser_WithValidDto_ReturnsPatchUserResponseDTO()
+        {
+            // Arrange
+            var patchUserRequestDto = new PatchUserRequestDTO();
+            _mockPatchUserRequestValidator.Setup(validator => validator.ValidateAsync(patchUserRequestDto, It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new ValidationResult());
 
-        // Assert
-        Assert.Contains(1, result.Users.Select(x => x.Id));
-        Assert.Contains(2, result.Users.Select(x => x.Id));
+            _mockUserService.Setup(service => service.EditUser(It.IsAny<User>()))
+                .Returns(Task.CompletedTask);
 
-    }
+            // Act
+            var result = await _applicationServiceUser.EditUser(patchUserRequestDto);
 
-    [Fact]
-    public async Task GetUserById_ValidId_ReturnsUser()
-    {
-        // Arrange
-        var mapperMock = new Mock<IMapper>();
-        var userServiceMock = new Mock<IUserService>();
-        var applicationService = new ApplicationServiceUser(mapperMock.Object, userServiceMock.Object);
-        var userId = 1;
-        var user = new User { Id = userId };
+            // Assert
+            result.Should().BeOfType<PatchUserResponseDTO>();
+        }
 
-        mapperMock.Setup(s => s.Map<UserResponseDTO>(user)).Returns(new UserResponseDTO() { Id = userId });
-        userServiceMock.Setup(s => s.GetUserById(userId)).ReturnsAsync(user);
+        [Fact]
+        public async Task GetAllUsers_ReturnsGetAllUsersResponseDTO()
+        {
+            // Arrange
+            var allUsers = new List<User> { new User(), new User() };
+            _mockUserService.Setup(service => service.GetAllUsers())
+                .ReturnsAsync(allUsers);
 
-        // Act
-        var result = await applicationService.GetUserById(userId);
+            // Act
+            var result = await _applicationServiceUser.GetAllUsers();
 
-        // Assert
-        Assert.Equal(user.Id, result.User.Id);
+            // Assert
+            result.Should().BeOfType<GetAllUsersResponseDTO>();
+            result.Users.Should().HaveCount(2);
+        }
+
+        [Fact]
+        public async Task GetUserById_WithValidId_ReturnsGetUserResponseDTO()
+        {
+            // Arrange
+            int userId = 123;
+            var user = new User();
+            _mockUserService.Setup(service => service.GetUserById(userId))
+                .ReturnsAsync(user);
+
+            // Act
+            var result = await _applicationServiceUser.GetUserById(userId);
+
+            // Assert
+            result.Should().BeOfType<GetUserResponseDTO>();
+        }
     }
 }
-
-

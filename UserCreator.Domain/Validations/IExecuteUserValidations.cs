@@ -4,8 +4,7 @@ namespace UserCreator.Domain.Validations;
 
 public interface IExecuteUserValidations
 {
-    void ExecuteUserSaveValidation(User postUserRequestDto);
+    Task ExecuteUserSaveValidation(User postUserRequestDto);
 
-    void ExecuteUserChangeValidation(User patchUserRequestDto);
 }
 

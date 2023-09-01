@@ -25,11 +25,10 @@ public static class DependencyInjection
         serviceCollection.AddScoped<IApplicationServiceUser, ApplicationServiceUser>();
 
         serviceCollection.AddScoped<IUserRepository, UserRepository>();
+        serviceCollection.AddScoped<IAddressRepository, AddressRepository>();
 
-        serviceCollection.AddScoped<ValidateCreateUserDataMiddleware>();
-        serviceCollection.AddScoped<ValidateCreateAddressDataMiddleware>();
-        serviceCollection.AddScoped<ValidateChangeUserDataMiddleware>();
-        serviceCollection.AddScoped<ValidateChangeAddressDataMiddleware>();
+        serviceCollection.AddScoped<ValidateSaveUserDataMiddleware>();
+        serviceCollection.AddScoped<ValidateSaveAddressDataMiddleware>();
         serviceCollection.AddScoped<IExecuteUserValidations, ExecuteUserValidations>();
 
         serviceCollection.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

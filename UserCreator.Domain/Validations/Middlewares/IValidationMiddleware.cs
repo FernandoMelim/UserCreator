@@ -4,6 +4,6 @@ namespace UserCreator.Domain.Validations.Middlewares
 {
     public interface IValidationMiddleware
     {
-        void Validate(BaseEntity apiBaseRequest);
+        Task Validate(BaseEntity apiBaseRequest);
     }
 }

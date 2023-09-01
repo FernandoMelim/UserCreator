@@ -48,6 +48,7 @@ public class ApplicationServiceUser : IApplicationServiceUser
 
         var user = _mapper.Map<User>(postUserRequestDto);
         await _userService.CreateUser(user);
+
         return response;
     }
 
@@ -73,6 +74,7 @@ public class ApplicationServiceUser : IApplicationServiceUser
 
         var user = _mapper.Map<User>(patchUserRequestDto);
         await _userService.EditUser(user);
+
         return new PatchUserResponseDTO();
     }
 
