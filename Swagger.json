@@ -360,14 +360,6 @@
         "additionalProperties": false
       },
       "ChangeAddressRequestDTO": {
-        "required": [
-          "city",
-          "id",
-          "number",
-          "postalCode",
-          "state",
-          "street"
-        ],
         "type": "object",
         "properties": {
           "id": {
@@ -375,32 +367,24 @@
             "format": "int32"
           },
           "street": {
-            "maxLength": 255,
-            "minLength": 3,
             "type": "string",
-            "format": "string"
+            "nullable": true
           },
           "number": {
             "type": "integer",
             "format": "int32"
           },
           "city": {
-            "maxLength": 255,
-            "minLength": 3,
             "type": "string",
-            "format": "string"
+            "nullable": true
           },
           "state": {
-            "maxLength": 255,
-            "minLength": 3,
             "type": "string",
-            "format": "string"
+            "nullable": true
           },
           "postalCode": {
-            "maxLength": 9,
-            "minLength": 9,
             "type": "string",
-            "format": "string"
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -557,14 +541,6 @@
         "format": "int32"
       },
       "PatchUserRequestDTO": {
-        "required": [
-          "birthDate",
-          "email",
-          "id",
-          "name",
-          "phone",
-          "schoolingLevel"
-        ],
         "type": "object",
         "properties": {
           "id": {
@@ -572,27 +548,24 @@
             "format": "int32"
           },
           "name": {
-            "maxLength": 255,
-            "minLength": 3,
             "type": "string",
-            "format": "string"
+            "nullable": true
           },
           "email": {
-            "minLength": 1,
             "type": "string",
-            "format": "email"
+            "nullable": true
           },
           "birthDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "nullable": true
           },
           "schoolingLevel": {
             "$ref": "#/components/schemas/SchoolingLevelEnum"
           },
           "phone": {
-            "minLength": 1,
             "type": "string",
-            "format": "tel"
+            "nullable": true
           },
           "adresses": {
             "type": "array",
