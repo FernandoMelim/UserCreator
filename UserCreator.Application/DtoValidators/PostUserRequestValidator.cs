@@ -1,58 +1,58 @@
 ﻿using FluentValidation;
 using UserCreator.Application.DTOs.Requets.User;
 
-namespace UserCreator.Application.DtoValidators
+namespace UserCreator.Application.DtoValidators;
+
+public class PostUserRequestValidator : AbstractValidator<PostUserRequestDTO>
 {
-    public class PostUserRequestValidator : AbstractValidator<PostUserRequestDTO>
+    private string _phonePattern = @"^\+?[0-9]*$";
+
+    public PostUserRequestValidator()
     {
-        private string _phonePattern = @"^\+?[0-9]*$";
+        RuleFor(dto => dto.Name)
+           .NotEmpty()
+           .WithMessage("O nome deve estar preenchido.")
+           .Length(3, 255)
+           .WithMessage("O nome deve ter no minimo 3 e no máximo 255 caracteres.");
 
-        public PostUserRequestValidator()
-        {
-            RuleFor(dto => dto.Name)
-               .NotEmpty()
-               .WithMessage("O nome deve estar preenchido.")
-               .Length(3, 255)
-               .WithMessage("O nome deve ter no minimo 3 e no máximo 255 caracteres.");
+        RuleFor(dto => dto.Email)
+            .NotEmpty()
+            .WithMessage("O e-mail deve estar preenchido.")
+            .EmailAddress()
+            .WithMessage("O e-mail fornecido não é válido.");
 
-            RuleFor(dto => dto.Email)
-                .NotEmpty()
-                .WithMessage("O e-mail deve estar preenchido.")
-                .EmailAddress()
-                .WithMessage("O e-mail fornecido não é válido.");
+        RuleFor(dto => dto.BirthDate)
+            .NotEmpty()
+            .WithMessage("A data de nascimento deve estar preenchida.")
+            .Must(BeAValidDate)
+            .WithMessage("A data de nascimento não é válida.")
+            .Must(BeInPast).WithMessage("A data de nascimento deve ser no passado.");
 
-            RuleFor(dto => dto.BirthDate)
-                .NotEmpty()
-                .WithMessage("A data de nascimento deve estar preenchida.")
-                .Must(BeAValidDate)
-                .WithMessage("A data de nascimento não é válida.")
-                .Must(BeInPast).WithMessage("A data de nascimento deve ser no passado.");
+        RuleFor(dto => dto.SchoolingLevel)
+            .NotEmpty()
+            .WithMessage("A escolaridade deve estar preenchida.")
+            .IsInEnum()
+            .WithMessage("A escolaridade especificada não é válida.");
 
-            RuleFor(dto => dto.SchoolingLevel)
-                .NotEmpty()
-                .WithMessage("A escolaridade deve estar preenchida.")
-                .IsInEnum()
-                .WithMessage("A escolaridade especificada não é válida.");
+        RuleFor(dto => dto.Phone)
+            .NotEmpty()
+            .WithMessage("O telefone deve estar preenchido..")
+            .Matches(_phonePattern)
+            .WithMessage("O telefone fornecido não é válido.");
 
-            RuleFor(dto => dto.Phone)
-                .NotEmpty()
-                .WithMessage("O telefone deve estar preenchido..")
-                .Matches(_phonePattern)
-                .WithMessage("O telefone fornecido não é válido.");
-
-            RuleFor(dto => dto.Adresses)
-                .NotEmpty()
-                .WithMessage("O usuário deve ter um endereço preenchido.")
-                .ForEach(address => address.SetValidator(new CreateAddressRequestValidator()));
-        }
-
-        private bool BeAValidDate(DateTime? date)
-            => date is DateTime;
-
-        private bool BeInPast(DateTime? date)
-            => date <= DateTime.Now;
+        RuleFor(dto => dto.Adresses)
+            .NotEmpty()
+            .WithMessage("O usuário deve ter um endereço preenchido.")
+            .ForEach(address => address.SetValidator(new CreateAddressRequestValidator()));
     }
+
+    private bool BeAValidDate(DateTime? date)
+        => date is DateTime;
+
+    private bool BeInPast(DateTime? date)
+        => date <= DateTime.Now;
 }
+
 
 public class CreateAddressRequestValidator : AbstractValidator<CreateAddressRequestDTO>
 {
